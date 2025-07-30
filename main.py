@@ -1,4 +1,6 @@
-from stats import get_word_count, get_char_counts, new_list
+from stats import get_word_count, get_char_counts, sorted_list
+import sys
+import os
 
 def get_book_text(file):
     with open(file) as f:
@@ -6,19 +8,23 @@ def get_book_text(file):
     return contents
 
 def main():
-    file = "books/frankenstein.txt"
+    if len(sys.argv) < 2:    
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    file = f"{os.getcwd()}/{sys.argv[1]}"
     txt = get_book_text(file)
     word_count = get_word_count(txt)
     char_counts = get_char_counts(txt)
-    final_list = new_list(char_counts)
+    final_list = sorted_list(char_counts)
 
-    println("============ BOOKBOT ============")
-    println(f"Analyzing book found at {file}")
-    println("----------- Word Count ----------")
-    println(f"Found {word_count} total words")
-    println("--------- Character Count -------")
-    for entry in final_list:
-        println(f"{entry['char']}: {entry['num']}")
-    println("============= END ===============")
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {file}")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
+    for char, count in final_list:
+        if char.isalpha():
+            print(f"{char}: {count}")
+    print("============= END ===============")
 
 main()

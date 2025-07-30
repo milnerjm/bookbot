@@ -14,8 +14,5 @@ def get_char_counts(text):
         else:
             char_counts[char] = 1
     return char_counts
-def new_list(char_dict):
-    xlist = []
-    for item in char_dict:
-        xlist.append({"char":item.key,"num":item.value})
-    return xlist
+def sorted_list(char_dict):
+    return sorted(char_dict.items(), key=lambda item: item[1], reverse=True)
